@@ -1,10 +1,12 @@
-#Imports
+########################################################################################## Imports
+
 from scipy.optimize import brentq
 import timeit #Para calcular tiempo de corrida
 import numpy as np #Manejo de arrays
 import matplotlib.pylab as plt #Rutinas gráficas
 
-#Funciones f1, f2, f3 y derivadas
+########################################################################################## Funciones f1, f2, f3 y derivadas
+
 def f1(x): 
     return x**2-2
 def df1(x): 
@@ -27,27 +29,26 @@ def ddf3(x):
     return (-24 * x + ( x - 1.5 ) * (8 * x - 12.0 )**2 + 36.0) * np.exp(-4 * (x - 1.5)**2)
 
 
-#dp0 semilla, TOL tolerancia, N0 numero maximo de iteraciones, f funcion, df derivada de funcion, ddf derivada de la derivada de la funcion
-def NR(p0, TOL, N0, f, df, ddf):
+########################################################################################## Funcion busqueda de raices por Newton-Raphson (Mejorado)
+def NRM(p0, tolerancia, max_iteraciones, f, df, ddf):
 	i = 1
-	while i <= N0 :
+	while i <= max_iteraciones :
 		p = p0 - ( f(p0) * df(p0) ) / ( (df(p0))**2 - ( f(p0) * ddf(p0)) )
 		delta = np.abs(p-p0)
 		print('{0:4} {1: .14f} {2: .14f}'.format(i, p0, delta))
-		if np.abs(p-p0)<TOL :
+		if np.abs(p-p0)<tolerancia :
 			delta = np.abs(p-p0)
-			n_iter = i
-			return p, delta, n_iter
+			return p, delta, i
 		else:
 			i = i + 1
 			p0 = p
-	print('el metodo fracaso despues de {} iteraciones' .format(N0) )
+
+	print('El metodo fracaso despues de {} iteraciones' .format(max_iteraciones) )
 	delta = np.abs(p-p0)
-	n_iter = i
-	return p, delta, n_iter
+	return p, delta, i
 
 
-
+########################################################################################## Parámetros pedidos
 
 #Intervalo para buscar raiz
 a = 0.0
@@ -57,97 +58,118 @@ b = 2.0
 p0 = 1.0
 
 #Parametros para el algoritmo
-a_tol1 = 1e-5
-a_tol2 = 1e-13
-n_max = 100
+tolerancia1 = 1e-5
+tolerancia2 = 1e-13
+max_iteraciones = 100
 
-#Grafica de las funciones
-#Ver https://matplotlib.org
+
+########################################################################################## Grafica de las funciones
+
+
+extension_graficos = '.png'
+
+# GRAFICA DE f1(x)
 xx = np.linspace(a, b, 256+1)
 yy = f1(xx)
-nombre = 'f1'
+nombre_funcion = 'f1'
 plt.figure(figsize=(10,7))
 plt.plot(xx, yy, lw=2)
 #plt.legend(loc=best)
 plt.xlabel('x')
-plt.ylabel(nombre +'(x)')
-plt.title('Funcion '+ nombre)
+plt.ylabel(nombre_funcion +'(x)')
+plt.title('Funcion '+ nombre_funcion)
 plt.grid(True)
-plt.savefig(nombre + '.png')
+plt.savefig(nombre_funcion + extension_graficos)
 plt.show()
 
-#Grafica de las funciones
-#Ver https://matplotlib.org
+# GRAFICA DE f2(x)
 xx = np.linspace(a, b, 256+1)
 yy = f2(xx)
-nombre = 'f2'
+nombre_funcion = 'f2'
 plt.figure(figsize=(10,7))
 plt.plot(xx, yy, lw=2)
 #plt.legend(loc=best)
 plt.xlabel('x')
-plt.ylabel(nombre +'(x)')
-plt.title('Funcion '+ nombre)
+plt.ylabel(nombre_funcion +'(x)')
+plt.title('Funcion '+ nombre_funcion)
 plt.grid(True)
-plt.savefig(nombre + '.png')
+plt.savefig(nombre_funcion + extension_graficos)
 plt.show()
 
-#Grafica de las funciones
-#Ver https://matplotlib.org
+# GRAFICA DE f3(x)
 xx = np.linspace(a, b, 256+1)
 yy = f3(xx)
-nombre = 'f3'
+nombre_funcion = 'f3'
 plt.figure(figsize=(10,7))
 plt.plot(xx, yy, lw=2)
 #plt.legend(loc=best)
 plt.xlabel('x')
-plt.ylabel(nombre +'(x)')
-plt.title('Funcion '+ nombre)
+plt.ylabel(nombre_funcion +'(x)')
+plt.title('Funcion '+ nombre_funcion)
 plt.grid(True)
-plt.savefig(nombre + '.png')
+plt.savefig(nombre_funcion + extension_graficos)
 plt.show()
 
-print('----------------')
-print('Metodo Newton Raphson Modificado')
-print('----------------')
+
+########################################################################################## Impresión de resultados
+
+print('\t\t\t---------------------------------')
+print('\t\t\tMetodo Newton Raphson Modificado')
+print('\t\t\t--------------------------------')
+
 print('')
-print('Funcion f1, a_tol = '+str(a_tol1))
-r, delta, n_iter = NR(p0, a_tol1,n_max, f1, df1, ddf1)
-print('raiz = ' +str(r))
-print('delta= ' +str(delta))
-print('n_ite= ' +str(n_iter))
+
+print('\t\t\tFuncion f1, tolerancia = '+str(tolerancia1))
+raiz_aproximada, delta, n_iter = NRM(p0, tolerancia1,max_iteraciones, f1, df1, ddf1)
+print('Raiz aproximada =' +str(raiz_aproximada))
+print('Delta =' +str(delta))
+print('Numero de iteraciones: ' +str(n_iter))
+
+print('') ### Cambio de tolerancia
+
+print('\t\t\tFuncion f1, tolerancia = '+str(tolerancia2))
+raiz_aproximada, delta, n_iter = NRM(p0, tolerancia2,max_iteraciones, f1, df1, ddf1)
+print('Raiz aproximada =' +str(raiz_aproximada))
+print('Delta =' +str(delta))
+print('Numero de iteraciones: ' +str(n_iter))
+
 print('')
-print('Funcion f1, a_tol = '+str(a_tol2))
-r, delta, n_iter = NR(p0, a_tol2,n_max, f1, df1, ddf1)
-print('raiz = ' +str(r))
-print('delta= ' +str(delta))
-print('n_ite= ' +str(n_iter))
+############# Cambio de funcion
 print('')
 
 
-print('Funcion f2, a_tol = '+str(a_tol1))
-r, delta, n_iter = NR(p0, a_tol1,n_max, f2, df2, ddf2)
-print('raiz = ' +str(r))
-print('delta= ' +str(delta))
-print('n_ite= ' +str(n_iter))
+print('\t\t\tFuncion f2, tolerancia = '+str(tolerancia1))
+raiz_aproximada, delta, n_iter = NRM(p0, tolerancia1,max_iteraciones, f2, df2, ddf2)
+print('Raiz aproximada =' +str(raiz_aproximada))
+print('Delta =' +str(delta))
+print('Numero de iteraciones: ' +str(n_iter))
+
+print('') ### Cambio de tolerancia
+
+print('\t\t\tFuncion f2, tolerancia = '+str(tolerancia2))
+raiz_aproximada, delta, n_iter = NRM(p0, tolerancia2,max_iteraciones, f2, df2, ddf2)
+print('Raiz aproximada =' +str(raiz_aproximada))
+print('Delta =' +str(delta))
+print('Numero de iteraciones: ' +str(n_iter))
+
 print('')
-print('Funcion f2, a_tol = '+str(a_tol2))
-r, delta, n_iter = NR(p0, a_tol2,n_max, f2, df2, ddf2)
-print('raiz = ' +str(r))
-print('delta= ' +str(delta))
-print('n_ite= ' +str(n_iter))
+############# Cambio de funcion
 print('')
 
 
-print('Funcion f3, a_tol = '+str(a_tol1))
-r, delta, n_iter = NR(p0, a_tol1,n_max, f3, df3, ddf3 )
-print('raiz = ' +str(r))
-print('delta= ' +str(delta))
-print('n_ite= ' +str(n_iter))
-print('')
-print('Funcion f3, a_tol = '+str(a_tol2))
-r, delta, n_iter = NR(p0, a_tol2,n_max, f3, df3, ddf3)
-print('raiz = ' +str(r))
-print('delta= ' +str(delta))
-print('n_ite= ' +str(n_iter))
+print('\t\t\tFuncion f3, tolerancia = '+str(tolerancia1))
+raiz_aproximada, delta, n_iter = NRM(p0, tolerancia1,max_iteraciones, f3, df3, ddf3 )
+print('Raiz aproximada =' +str(raiz_aproximada))
+print('Delta =' +str(delta))
+print('Numero de iteraciones: ' +str(n_iter))
+
+print('') ### Cambio de tolerancia
+
+print('\t\t\tFuncion f3, tolerancia = '+str(tolerancia2))
+raiz_aproximada, delta, n_iter = NRM(p0, tolerancia2,max_iteraciones, f3, df3, ddf3)
+print('Raiz aproximada =' +str(raiz_aproximada))
+print('Delta =' +str(delta))
+print('Numero de iteraciones: ' +str(n_iter))
+
 print('')
 
