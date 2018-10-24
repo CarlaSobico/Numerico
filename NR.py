@@ -74,52 +74,52 @@ extension_graficos = '.png'
 # GRAFICA DE f1(x)
 xx = np.linspace(a, b, 256+1)
 yy = f1(xx)
-nombre = 'f1'
+nombre_funcion = 'f1'
 plt.figure(figsize=(10,7))
 plt.plot(xx, yy, lw=2)
 #plt.legend(loc=best)
 plt.xlabel('x')
-plt.ylabel(nombre +'(x)')
-plt.title('Funcion '+ nombre)
+plt.ylabel(nombre_funcion +'(x)')
+plt.title('Funcion '+ nombre_funcion)
 plt.grid(True)
-plt.savefig(nombre + extension_graficos)
+plt.savefig(nombre_funcion + extension_graficos)
 plt.show()
 
 # GRAFICA DE f2(x)
 xx = np.linspace(a, b, 256+1)
 yy = f2(xx)
-nombre = 'f2'
+nombre_funcion = 'f2'
 plt.figure(figsize=(10,7))
 plt.plot(xx, yy, lw=2)
 #plt.legend(loc=best)
 plt.xlabel('x')
-plt.ylabel(nombre +'(x)')
-plt.title('Funcion '+ nombre)
+plt.ylabel(nombre_funcion +'(x)')
+plt.title('Funcion '+ nombre_funcion)
 plt.grid(True)
-plt.savefig(nombre + extension_graficos)
+plt.savefig(nombre_funcion + extension_graficos)
 plt.show()
 
 # GRAFICA DE f3(x)
 xx = np.linspace(a, b, 256+1)
 yy = f3(xx)
-nombre = 'f3'
+nombre_funcion = 'f3'
 plt.figure(figsize=(10,7))
 plt.plot(xx, yy, lw=2)
 #plt.legend(loc=best)
 plt.xlabel('x')
-plt.ylabel(nombre +'(x)')
-plt.title('Funcion '+ nombre)
+plt.ylabel(nombre_funcion +'(x)')
+plt.title('Funcion '+ nombre_funcion)
 plt.grid(True)
-plt.savefig(nombre + extension_graficos)
+plt.savefig(nombre_funcion + extension_graficos)
 plt.show()
 
 
 ########################################################################################## Impresión de resultados
 
 
-print('\t\t\t----------------')
+print('\t\t\t----------------------')
 print('\t\t\tMetodo Newton Raphson')
-print('\t\t\t----------------')
+print('\t\t\t---------------------')
 
 print('')
 
@@ -127,7 +127,7 @@ print('\t\t\tFuncion f1, tolerancia = '+str(tolerancia1))
 raiz_aprox, delta, n_iter = NR(p0, tolerancia1,max_iteraciones, f1, df1)
 print('Raiz aproximada =' +str(raiz_aprox))
 print('Delta =' +str(delta))
-print('Numero de iteraciones hasta convergencia: ' +str(n_iter))
+print('Numero de iteraciones: ' +str(n_iter))
 
 print('') ### Cambio de tolerancia
 
@@ -135,7 +135,7 @@ print('\t\t\tFuncion f1, tolerancia = '+str(tolerancia2))
 raiz_aprox, delta, n_iter = NR(p0, tolerancia2,max_iteraciones, f1, df1)
 print('Raiz aproximada =' +str(raiz_aprox))
 print('Delta =' +str(delta))
-print('Numero de iteraciones hasta convergencia: ' +str(n_iter))
+print('Numero de iteraciones: ' +str(n_iter))
 
 print('')
 ############# Cambio de funcion
@@ -145,7 +145,7 @@ print('\t\t\tFuncion f2, tolerancia = '+str(tolerancia1))
 raiz_aprox, delta, n_iter = NR(p0, tolerancia1,max_iteraciones, f2, df2)
 print('Raiz aproximada =' +str(raiz_aprox))
 print('Delta =' +str(delta))
-print('Numero de iteraciones hasta convergencia: ' +str(n_iter))
+print('Numero de iteraciones: ' +str(n_iter))
 
 print('') ### Cambio de tolerancia
 
@@ -154,7 +154,7 @@ print('\t\t\tFuncion f2, tolerancia = '+str(tolerancia2))
 raiz_aprox, delta, n_iter = NR(p0, tolerancia2,max_iteraciones, f2, df2)
 print('Raiz aproximada =' +str(raiz_aprox))
 print('Delta =' +str(delta))
-print('Numero de iteraciones hasta convergencia: ' +str(n_iter))
+print('Numero de iteraciones: ' +str(n_iter))
 
 print('')
 ############# Cambio de funcion
@@ -164,7 +164,7 @@ print('\t\t\tFuncion f3, tolerancia = '+str(tolerancia1))
 raiz_aprox, delta, n_iter = NR(p0, tolerancia1,max_iteraciones, f3, df3)
 print('Raiz aproximada =' +str(raiz_aprox))
 print('Delta =' +str(delta))
-print('Numero de iteraciones hasta convergencia: ' +str(n_iter))
+print('Numero de iteraciones: ' +str(n_iter))
 
 print('') ### Cambio de tolerancia
 
@@ -172,7 +172,7 @@ print('\t\t\tFuncion f3, tolerancia = '+str(tolerancia2))
 raiz_aprox, delta, n_iter = NR(p0, tolerancia2,max_iteraciones, f3, df3)
 print('Raiz aproximada =' +str(raiz_aprox))
 print('Delta =' +str(delta))
-print('Numero de iteraciones hasta convergencia: ' +str(n_iter))	
+print('Numero de iteraciones: ' +str(n_iter))	
 
 print('')
 
