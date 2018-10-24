@@ -36,8 +36,8 @@ def bisec(funcion, a, b, tolerancia, max_iteraciones):
     x = a+(b-a)/2    #mejor que (a+b)/2 segun Burden
     delta = (b-a)/2
     
-    print('{0:^4} {1:^17} {2:^17} {3:^17}'.format('i', 'x', 'a', 'b'))
-    print('{0:4} {1: .14f} {2: .14f} {3: .14f}'.format(0, x, a, b))
+    print('{0:^4} {1:^17} {2:^17} {3:^17} {4:^17}'.format('i', 'a', 'b', 'x', 'cota'))
+    print('{0:4} {1: .14f} {2: .14f} {3: .14f} {4: .14f}'.format(0, a, b, x, x))
     
     for i in range(max_iteraciones):
         if funcion(a) * funcion(x) > 0:
@@ -45,13 +45,12 @@ def bisec(funcion, a, b, tolerancia, max_iteraciones):
         else:
             b = x
         x_anterior = x
-        x = a+(b-a)/2 # vamor medio
+        x = a+(b-a)/2 # valor medio
         delta = np.abs(x - x_anterior)
         
-        print('{0:4} {1: .14f} {2: .14f} {3: .14f}'.format(i+1, x, a, b))
+        print('{0:4} {1: .14f} {2: .14f} {3: .14f} {4: .14f}'.format(i+1, a, b, x, delta ))
         
         if delta <= tolerancia: #Hubo convergencia
-            print('Hubo convergencia en %s iteraciones' % str(i+1))
             return x, delta, i+1
     
     #Si todavia no salio es que no hubo convergencia:
